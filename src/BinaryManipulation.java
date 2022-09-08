@@ -1,3 +1,5 @@
+import java.io.*;
+
 public class BinaryManipulation {
 
     public static void main(String[] args){
@@ -7,8 +9,10 @@ public class BinaryManipulation {
         System.out.println((char)decryptChar(k,(char)cryptChar(m,k)));
         String message = "TESTmeddelande";
         String key = "123";
-        System.out.println(cryptString(message, key));
-        System.out.println(decryptString(key, cryptString(message, key)));
+        int keyLength = key.length();
+        System.out.println(cryptString(message, key, keyLength));
+        System.out.println(decryptString(key, cryptString(message, key, keyLength), keyLength));
+        System.out.println(cryptStringHex(message, key, keyLength));
     }
 
     public static int cryptChar(char m, char k) {
@@ -19,9 +23,8 @@ public class BinaryManipulation {
         return k^c;
     }
 
-    public static String cryptString(String m, String k){
+    public static String cryptString(String m, String k, int keyLength){
         String s = "";
-        int keyLength = k.length();
         for(int i = 0; i < m.length(); i++){
             char x = m.charAt(i);
             char y = k.charAt(i%keyLength);
@@ -30,9 +33,8 @@ public class BinaryManipulation {
         return s;
     }
 
-    public static String decryptString(String k, String c){
+    public static String decryptString(String k, String c, int keyLength){
         String s = "";
-        int keyLength = k.length();
         for(int i = 0; i < c.length(); i++){
             char x = c.charAt(i);
             char y = k.charAt(i%keyLength);
@@ -40,4 +42,17 @@ public class BinaryManipulation {
         }
         return s;
     }
+
+    public static String cryptStringHex(String m, String k, int keyLength){
+        String s = "";
+        for(int i = 0; i < m.length(); i++){
+            char x = m.charAt(i);
+            char y = k.charAt(i%keyLength);
+            s = s + Integer.toHexString(cryptChar(x,y)) + " ";
+        }
+        return s;
+    }
+
+
+
 }
