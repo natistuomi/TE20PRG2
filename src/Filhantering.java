@@ -1,18 +1,44 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Filhantering {
     public static void main(String[] args){
+        PrintWriter outfile_message = openFileForWriting("message.txt");
+        writeRandomNumbers(outfile_message);
         BufferedReader infile = openTextFileForReading("message.txt");
         ArrayList<String> filecontent = readAllText(infile);
-        DataOutputStream outfile = openBinaryFileForWriting("crypt.txt");
-        writeTextToBinary(filecontent, outfile);
+        DataOutputStream outfile_crypt = openBinaryFileForWriting("crypt.txt");
+        writeTextToBinary(filecontent, outfile_crypt);
+    }
+
+    private static PrintWriter openFileForWriting(String filename) {
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(filename);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter outfile = new PrintWriter(bw);
+        return outfile;
+    }
+
+    private static void writeRandomNumbers(PrintWriter outfile) {
+        int x;
+        Random r = new Random();
+
+        for (int i = 0 ; i < 1920*1080 ; i++) {
+            x = r.nextInt(0xffffff);
+            outfile.println(x);
+        }
     }
 
     private static void writeTextToBinary(ArrayList<String> filecontent, DataOutputStream outfile) {
         for(int i = 0; i < filecontent.size(); i++){
             try {
-                outfile.write(filecontent.get(i).getBytes());
+                int number = Integer.parseInt(filecontent.get(i));
+                outfile.writeInt(number);
             } catch (IOException e) {
                 System.out.println("Failed to write");
                 e.printStackTrace();
