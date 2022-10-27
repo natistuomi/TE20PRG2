@@ -4,23 +4,23 @@ public class BinaryManipulation {
 
     public static void main(String[] args){
         char m = 'H';
-        char k = '(';
+        char k = ')';
         System.out.println((char)cryptChar(m,k));
         System.out.println((char)decryptChar(k,(char)cryptChar(m,k)));
-        String message = "TESTmeddelande";
-        String key = "123";
+        String message = "hej";
+        String key = "(((";
         int keyLength = key.length();
         System.out.println(cryptString(message, key, keyLength));
         System.out.println(decryptString(key, cryptString(message, key, keyLength), keyLength));
         System.out.println(cryptStringHex(message, key, keyLength));
     }
 
-    public static int cryptChar(char m, char k) {
-        return m^k;
-    }
-
     public static int decryptChar(char k, char c){
         return k^c;
+    }
+
+    public static int cryptChar(char m, char k) {
+        return m^k;
     }
 
     public static String cryptString(String m, String k, int keyLength){
