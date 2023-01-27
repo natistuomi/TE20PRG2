@@ -4,9 +4,11 @@ import java.util.Scanner;
 public class Weather {
     private String place;
     private double temperature;
+    private String name;
 
-    public Weather(String place) {
+    public Weather(String name, String place) {
         this.place = place;
+        this.name = name;
         temperature = Double.parseDouble(weather(place));
     }
 
@@ -24,8 +26,8 @@ public class Weather {
         return temperature;
     }
 
-    public String getPlace() {
-        return place;
+    public String getName() {
+        return name;
     }
 
     public double getTemperature() {
