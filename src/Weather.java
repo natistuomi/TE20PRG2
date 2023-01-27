@@ -26,6 +26,19 @@ public class Weather {
         return temperature;
     }
 
+    public String compareTemperature(Weather place){
+        double t = temperature - place.getTemperature();
+        if(t < 0){
+            return this.name + " är " + t*-1 + " grader kallare än " + place.getName();
+        }
+        else if(t == 0){
+            return this.name + " har samma temperatur som " + place.getName();
+        }
+        else{
+            return this.name + " är " + t + " grader varmare än " + place.getName();
+        }
+    }
+
     public String getName() {
         return name;
     }
